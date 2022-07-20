@@ -2,7 +2,6 @@
   <div class="home">
     <xu-table
       init-request
-      :format="formatData"
       @onLoad="onLoad"
       :column="column"
       index
@@ -11,6 +10,7 @@
       :params="params_1"
       url="/name/"
       method="post"
+      :check-list.sync="checkList"
     >
       <template v-slot:operation="slot">
         <xu-button type="primary" @click="handleEdit(slot.data)"
@@ -26,16 +26,33 @@ export default {
   name: "Home",
   data() {
     return {
+      checkList: [],
       column: [
-        { label: "姓名", prop: "name" },
-        { label: "性别", prop: "gender" },
-        { label: "创建时间", prop: "create_date" },
         {
-          label: "操作",
-          type: "slot",
-          slot_name: "operation",
-          prop: "operation",
+          type: "function",
+          label: "姓名",
+          prop: "name",
+          callback: () => {
+            return "123";
+          },
+          sort: true,
         },
+        {
+          label: "性别",
+          prop: "gender",
+          sort: true,
+          type: "function",
+          callback: () => {
+            return "哈哈哈";
+          },
+        },
+        // { label: "创建时间", prop: "create_date" },
+        // {
+        //   label: "操作",
+        //   type: "slot",
+        //   slot_name: "operation",
+        //   prop: "operation",
+        // },
       ],
       data_1: {
         name: "jack",
@@ -45,6 +62,15 @@ export default {
       },
     };
   },
+  watch: {
+    checkList: {
+      handler(val) {
+        console.log(val);
+      },
+      deep: true,
+    },
+  },
+
   components: {
     xuButton: () => import("../components/button/index.vue"),
     xuTable: () => import("../components/Table/index.vue"),

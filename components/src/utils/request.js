@@ -1,12 +1,9 @@
-/**
- * @date 2022/7/19 12:55
- */
-// 导入axios
+
 import axios from "axios";
 
 // 创建axios实例对象
 const service = axios.create({
-  baseURL: "http://old.web-jshtml.cn/api/basis",
+  baseURL: process.env.VUE_APP_API,
   timeout: 5000,
 });
 
@@ -30,10 +27,7 @@ service.interceptors.response.use(
   }
 );
 
-// 统一了传参处理
 const request = (options) => {
   return service(options);
 };
-
-// 导出axios实例对象
 export default request;
