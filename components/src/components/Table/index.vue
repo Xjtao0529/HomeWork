@@ -2,8 +2,8 @@
   <div>
     <el-table
       :data="tableData"
-      @selection-change="handleSelectionChange"
       style="width: 100%"
+      @selection-change="handleSelectionChange"
     >
       <el-table-column
         v-if="index"
@@ -11,30 +11,33 @@
         type="index"
         width="55"
       ></el-table-column>
+      <el-table-column v-if="checkbox" type="selection" width="55">
+      </el-table-column>
       <el-table-column
-        v-if="checkbox"
-        type="selection"
-        width="55"
-      ></el-table-column>
-      <template v-for="(item, index) in column">
-        <el-table-column
-          :sortable="item.sort"
-          :render-header="item.renderHeader"
-          :key="index"
-          :prop="item.prop"
-          :label="item.label"
-          :width="item.width"
-        >
-          <template v-slot="scope">
-            <component
-              :data="scope.row"
-              :config="item"
-              :prop="item.prop"
-              :is="!item.type ? 'com-text' : `com-${item.type}`"
-            ></component>
-          </template>
-        </el-table-column>
-      </template>
+        v-for="(item, index) in column"
+        :sort-by="item.sortBy"
+        :sortable="item.sort"
+        :render-header="item.renderHeader"
+        :key="index"
+        :prop="item.prop"
+        :label="item.label"
+        :width="item.width"
+      >
+        <template v-slot="scope">
+          <slot
+            v-if="item.type === 'slot'"
+            :name="item.slot_name"
+            :data="scope.row"
+          ></slot>
+          <component
+            v-else
+            :data="scope.row"
+            :config="item"
+            :prop="item.prop"
+            :is="!item.type ? 'com-text' : `com-${item.type}`"
+          ></component>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>

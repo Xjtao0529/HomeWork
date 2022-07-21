@@ -1,34 +1,27 @@
 <template>
-  <div>
-    <!-- <div v-html="config.callback && config.callback(data)"></div> -->
-    <!-- {{ data[prop] }} -->
-    123
-  </div>
+  <div>{{data[prop]}}</div>
 </template>
 
 <script>
 export default {
+  name: 'index',
   props: {
     data: {
       type: Object,
-      default: () => ({}),
+      default: () => ({})
     },
     config: {
       type: Object,
-      default: () => ({}),
+      default: () => ({})
     },
     prop: {
       type: String,
-      default: "",
-    },
-  },
-
-  data() {
-    return {
-      msg: 3333,
-    };
-  },
-};
+      default: ''
+    }
+  }
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+
+</style>

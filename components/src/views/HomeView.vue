@@ -35,16 +35,14 @@ export default {
           callback: () => {
             return "123";
           },
-          sort: true,
         },
         {
           label: "性别",
           prop: "gender",
-          sort: true,
           type: "function",
-          callback: () => {
-            return "哈哈哈";
-          },
+          // callback: () => {
+          //   return "哈哈哈";
+          // },
         },
         // { label: "创建时间", prop: "create_date" },
         // {
