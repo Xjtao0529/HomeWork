@@ -1,6 +1,7 @@
 <template>
   <div>
-    <img :src="data[prop]" width="80" height="80" />
+    <el-tag type="success" v-if="data[prop] === 1">正常</el-tag>
+    <el-tag type="info" v-if="data[prop] === 0">禁用</el-tag>
   </div>
 </template>
 

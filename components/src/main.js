@@ -1,18 +1,23 @@
-import Vue from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
-import "./styles/icon/iconfont.css";
-import ElementUI from "element-ui";
-import "element-ui/lib/theme-chalk/index.css";
-import axios from "./utils/request";
-Vue.prototype.$axios = axios
-Vue.use(ElementUI);
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+import store from './store'
 
-Vue.config.productionTip = false;
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+
+import './styles/icon/iconfont.css'
+
+import request from '@/utils/request'
+
+Vue.use(ElementUI)
+
+Vue.prototype.$axios = request
+
+Vue.config.productionTip = false
 
 new Vue({
   router,
   store,
-  render: (h) => h(App),
-}).$mount("#app");
+  render: h => h(App)
+}).$mount('#app')

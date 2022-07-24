@@ -4,38 +4,14 @@
       :data="tableData"
       style="width: 100%"
       @selection-change="handleSelectionChange"
+      @sort-change="handleSortChange"
     >
-      <el-table-column
-        v-if="index"
-        label="序号"
-        type="index"
-        width="55"
-      ></el-table-column>
-      <el-table-column v-if="checkbox" type="selection" width="55">
-      </el-table-column>
-      <el-table-column
-        v-for="(item, index) in column"
-        :sort-by="item.sortBy"
-        :sortable="item.sort"
-        :render-header="item.renderHeader"
-        :key="index"
-        :prop="item.prop"
-        :label="item.label"
-        :width="item.width"
-      >
+      <el-table-column v-if="index" label="序号" type="index" width="55"></el-table-column>
+      <el-table-column v-if="checkbox" type="selection" width="55"></el-table-column>
+      <el-table-column v-for="(item,index) in column" :sort-by="item.sortBy" :sortable="item.sort" :render-header="item.renderHeader"  :key="index" :prop="item.prop" :label="item.label" :width="item.width">
         <template v-slot="scope">
-          <slot
-            v-if="item.type === 'slot'"
-            :name="item.slot_name"
-            :data="scope.row"
-          ></slot>
-          <component
-            v-else
-            :data="scope.row"
-            :config="item"
-            :prop="item.prop"
-            :is="!item.type ? 'com-text' : `com-${item.type}`"
-          ></component>
+          <slot v-if="item.type === 'slot'" :name="item.slot_name" :data="scope.row"></slot>
+          <component v-else :data="scope.row" :config="item" :prop="item.prop" :is="!item.type ? 'com-text' : `com-${item.type}`"></component>
         </template>
       </el-table-column>
     </el-table>
@@ -43,98 +19,107 @@
 </template>
 
 <script>
-const modules = {};
-const files = require.context("../control", true, /index.vue$/i);
-files.keys().forEach((item) => {
-  const key = item.split("/");
-  const name = key[1];
-  modules[`com-${name}`] = files(item).default;
-});
-console.log(modules);
+const modules = {}
+const files = require.context('../control', true, /index.vue$/i)
+files.keys().forEach(item => {
+  const key = item.split('/')
+  const name = key[1]
+  modules[`com-${name}`] = files(item).default
+})
+console.log(modules)
 export default {
   components: {
-    ...modules,
+    ...modules
   },
-  name: "xuTable",
   props: {
     column: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     checkbox: Boolean,
     index: Boolean,
     url: {
       type: String,
-      default: "",
-      required: true,
+      default: '',
+      required: true
     },
     method: {
       type: String,
-      default: "GET",
+      default: 'GET'
     },
     data: {
       type: Object,
-      default: () => {},
+      default: () => {}
     },
     params: {
       type: Object,
-      default: () => {},
+      default: () => {}
+    },
+    checkList: {
+      type: Array,
+      default: () => []
     },
     initRequest: Boolean,
     onLoad: Boolean,
-    format: Function,
+    format: Function
   },
-  data() {
+  data () {
     return {
-      tableData: [],
-    };
+      tableData: []
+    }
   },
-  created() {
-    this.initRequest && this.getTableList();
+  created () {
+    this.initRequest && this.getTableList()
   },
   methods: {
-    async getTableList() {
-      const url = this.url;
+    // 获取复选框选中的数据
+    handleSelectionChange (val) {
+      this.$emit('update:checkList', val)
+    },
+    // 表格数据远程排序
+    handleSortChange ({ column, prop, order }) {
+      const sortBy = column.sortBy
+      this.$emit('sortTable', { sortBy, order })
+    },
+    async getTableList () {
+      const url = this.url
       if (!url) {
-        throw new Error("url is required");
-        return false;
+        throw new Error('url is required')
+        return false
       }
       try {
         const requestData = {
           url: this.url,
-          method: this.method,
-        };
-
-        if (JSON.stringify(this.data) === "{}") {
-          requestData.data = this.data;
+          method: this.method
         }
 
-        if (JSON.stringify(this.params) === "{}") {
-          requestData.params = this.params;
+        if (JSON.stringify(this.data) === '{}') {
+          requestData.data = this.data
         }
-        const response = await this.$axios(requestData);
 
-        let data = response.data.data;
-
-        if (this.format && typeof this.format === "function") {
-          data = this.format(response.data);
+        if (JSON.stringify(this.params) === '{}') {
+          requestData.params = this.params
         }
-        this.tableData = data;
+        const response = await this.$axios(requestData)
 
-        this.onLoad && this.$emit("onLoad", response.data);
+        let data = response.data.data
+        if (this.format && typeof this.format === 'function') {
+          data = this.format(response.data)
+        }
+        this.tableData = data
+
+        this.onLoad && this.$emit('onLoad', response.data)
       } catch (e) {
-        console.log(e);
+        console.log(e)
       }
     },
-    handleRequest() {
-      this.getTableList();
-    },
-    handleSelectionChange(val) {
-      console.log(val);
-      this.$emit("update:checkList", val);
-    },
-  },
-};
+    handleRequest () {
+      this.getTableList()
+    }
+  }
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

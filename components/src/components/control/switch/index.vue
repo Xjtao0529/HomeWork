@@ -1,9 +1,13 @@
 <template>
-  <div></div>
+  <div>switch</div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: 'index'
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+
+</style>

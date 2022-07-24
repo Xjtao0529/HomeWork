@@ -1,8 +1,12 @@
 <template>
   <div class="home">
+    <el-button type="primary" @click="getCheckList"
+      >测试获取复选框选中的数据</el-button
+    >
     <xu-table
       init-request
       @onLoad="onLoad"
+      :check-list.sync="checkList"
       :column="column"
       index
       checkbox
@@ -10,11 +14,10 @@
       :params="params_1"
       url="/name/"
       method="post"
-      :check-list.sync="checkList"
     >
       <template v-slot:operation="slot">
-        <xu-button type="primary" @click="handleEdit(slot.data)"
-          >编辑</xu-button
+        <xu-button type="warning" @click="handleDelete(slot.data)"
+          >删除</xu-button
         >
       </template>
     </xu-table>
@@ -26,31 +29,28 @@ export default {
   name: "Home",
   data() {
     return {
-      checkList: [],
       column: [
         {
-          type: "function",
           label: "姓名",
           prop: "name",
-          callback: () => {
-            return "123";
-          },
         },
         {
-          label: "性别",
-          prop: "gender",
-          type: "function",
-          // callback: () => {
-          //   return "哈哈哈";
-          // },
+          label: "创建时间",
+          prop: "create_date",
+          sort: true,
+          sortBy: "a.xx",
         },
-        // { label: "创建时间", prop: "create_date" },
-        // {
-        //   label: "操作",
-        //   type: "slot",
-        //   slot_name: "operation",
-        //   prop: "operation",
-        // },
+        {
+          label: "广告图片",
+          prop: "url",
+          type: "image",
+        },
+        {
+          label: "操作",
+          type: "slot",
+          slot_name: "operation",
+          prop: "operation",
+        },
       ],
       data_1: {
         name: "jack",
@@ -58,6 +58,7 @@ export default {
       params_1: {
         name: "rose",
       },
+      checkList: [],
     };
   },
   watch: {
@@ -68,12 +69,14 @@ export default {
       deep: true,
     },
   },
-
   components: {
     xuButton: () => import("../components/button/index.vue"),
-    xuTable: () => import("../components/Table/index.vue"),
+    xuTable: () => import("../components/table/index.vue"),
   },
   methods: {
+    getCheckList() {
+      console.log(this.checkList);
+    },
     handleEdit(row) {
       console.log(row);
     },
@@ -93,3 +96,5 @@ export default {
   },
 };
 </script>
+
+<style scoped></style>

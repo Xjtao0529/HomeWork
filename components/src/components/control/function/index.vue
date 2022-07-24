@@ -1,26 +1,27 @@
 <template>
-  <div>
-    <div v-html="config.callback && config.callback(data)"></div>
-  </div>
+  <div v-html="config.callback && config.callback(data)"></div>
 </template>
 
 <script>
 export default {
+  name: 'index',
   props: {
     data: {
       type: Object,
-      default: () => ({}),
+      default: () => ({})
     },
     config: {
       type: Object,
-      default: () => ({}),
+      default: () => ({})
     },
     prop: {
       type: String,
-      default: "",
-    },
-  },
-};
+      default: ''
+    }
+  }
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+
+</style>
