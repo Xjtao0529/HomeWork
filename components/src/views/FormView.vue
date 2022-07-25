@@ -1,6 +1,6 @@
 <template>
   <div>
-    <yang-form :item="formItem" :button="formButton"></yang-form>
+    <xu-form :item="formItem" :button="formButton"></xu-form>
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 export default {
   name: 'FormView',
   components: {
-    yangForm: () => import('../components/form/index.vue')
+    xuForm: () => import('../components/form/index.vue')
   },
   data () {
     return {
