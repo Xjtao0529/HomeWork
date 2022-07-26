@@ -22,6 +22,7 @@ files.keys().forEach(item => {
 })
 console.log(modules)
 export default {
+  name: 'xuForm',
   components: {
     ...modules
   },

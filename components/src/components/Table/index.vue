@@ -28,6 +28,7 @@ files.keys().forEach(item => {
 })
 console.log(modules)
 export default {
+  name: 'xuTable',
   components: {
     ...modules
   },

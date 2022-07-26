@@ -1,6 +1,4 @@
-/**
- * @date 2022/7/21 11:18
- */
+
 import { validatePhone, validatePass, validateEmail } from '../../utils/validate'
 const createRules = (data) => {
   data.forEach(item => {
@@ -41,6 +39,9 @@ const createMessage = (data) => {
   switch (data.type) {
     case 'input' :
       msg = '请输入'
+      break
+    case 'checkbox' :
+      msg = '请选择'
       break
     case 'select' :
       msg = '请选择'

@@ -1,5 +1,5 @@
 <template>
-  <button @click="change" :disabled="disabled || loading " class="yang-button" :style="[minWidthCss]" :class="[theme, isRound, isBorder, isSize, blockCss]">
+  <button @click="change" :disabled="disabled || loading " class="xu-button" :style="[minWidthCss]" :class="[theme, isRound, isBorder, isSize, blockCss]">
     <span>
       <i v-if="loading" class="iconfont icon-prefix icon-loading"></i>
       <i v-if="prefix" class="iconfont icon-prefix" :class="iconPrefix"></i>
@@ -41,7 +41,7 @@ export default {
   },
   computed: {
     theme () {
-      return this.type ? `yang-button-${this.type}` : ''
+      return this.type ? `xu-button-${this.type}` : ''
     },
     isRound () {
       return this.round ? 'is-round' : ''
@@ -50,7 +50,7 @@ export default {
       return this.border ? 'is-border' : ''
     },
     isSize () {
-      return this.size ? `yang-button-${this.size}` : ''
+      return this.size ? `xu-button-${this.size}` : ''
     },
     minWidthCss () {
       if (!this.minWidth) return ''
@@ -63,7 +63,7 @@ export default {
       return this.suffix ? `icon-${this.suffix}` : ''
     },
     blockCss () {
-      return this.block ? 'yang-button-block' : ''
+      return this.block ? 'xu-button-block' : ''
     }
   },
   methods: {

@@ -1,6 +1,4 @@
-/**
- * @date 2022/7/19 12:55
- */
+
 // 导入axios
 import axios from 'axios'
 
@@ -9,7 +7,7 @@ import axios from 'axios'
 
 // 创建axios实例对象
 const service = axios.create({
-  baseURL: process.env.VUE_APP_API,
+  // baseURL: process.env.VUE_APP_API,
   timeout: 5000
 })
 
